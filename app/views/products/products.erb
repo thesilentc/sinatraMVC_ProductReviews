@@ -3,3 +3,19 @@ UserName <%=@user.username%>
 Email <%=@user.email%>
 
 List all products
+
+<% Product.all.each_with_index do |product, index|%>
+  <br></br>
+  <%= index+1 %>. <%= product.name %>
+  <%= product.description %>
+
+  Created by...
+  <%=@user.username%>
+  <br></br>
+
+
+<% end %>
+
+<a href="/products/new">Create a New product here !</a>
+<br></br>
+<a href="/logout">Logout</a>

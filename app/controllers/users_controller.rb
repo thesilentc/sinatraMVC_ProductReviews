@@ -17,16 +17,38 @@ class UsersController < ApplicationController
 
     end
 
-    # get 'login' do
-    # end
-    #
-    # post 'login' do
-    # end
-    #
-    # get 'logout' do
-    # end
+    get '/login' do
+      if logged_in?
+        redirect to :"/products"
+      else
+        erb :'/users/login'
+      end
+    end
 
-    # get 'users/:slug' do
-    # end
+    post '/login' do
+      @user = User.find_by(:email => params[:email])
+        if @user && @user.authenticate(params[:password])
+            session[:user_id] = @user.id
+            redirect "/products"
+        else
+            redirect '/signup'
+        end
+    end
+
+    get '/logout' do
+      if logged_in?
+        session.destroy
+        redirect "/login"
+      else
+          redirect "/"
+      end
+    end
+
+    get '/users/:slug' do
+      @user = User.find_by_slug(:slug)
+        if @user.logged_in?
+          erb :'/users/show'
+        end
+    end
 
 end

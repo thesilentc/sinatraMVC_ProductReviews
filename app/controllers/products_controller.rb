@@ -1,12 +1,19 @@
 class ProductsController < ApplicationController
 
+  get '/products/new' do
+    if logged_in?
+      erb :'/products/create_product'
+    else
+      redirect to "/login"
+    end
+  end
+
   get '/products' do
     if logged_in?
       @user = current_user
-      puts @user
       erb :"/products/products"
     else
-      # redirect to "/login"
+      redirect to "/login"
     end
 
   end
