@@ -1,4 +1,4 @@
 class Review < ActiveRecord::Base
-    belongs_to :product
-    belongs_to :user
-end 
+  has_many :products
+  has_many :users, through: :products
+end

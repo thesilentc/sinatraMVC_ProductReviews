@@ -5,8 +5,6 @@ class CreateReviews < ActiveRecord::Migration
       t.text :review_comment
       t.boolean :recommend
       t.integer :rating
-      t.integer :user_id
-      t.integer :product_id
     end
   end
 end

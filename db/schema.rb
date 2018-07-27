@@ -14,8 +14,10 @@
 ActiveRecord::Schema.define(version: 20180726210313) do
 
   create_table "products", force: :cascade do |t|
-    t.string "name"
-    t.text   "description"
+    t.string  "name"
+    t.text    "description"
+    t.integer "user_id"
+    t.integer "review_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -23,8 +25,6 @@ ActiveRecord::Schema.define(version: 20180726210313) do
     t.text    "review_comment"
     t.boolean "recommend"
     t.integer "rating"
-    t.integer "user_id"
-    t.integer "product_id"
   end
 
   create_table "users", force: :cascade do |t|
