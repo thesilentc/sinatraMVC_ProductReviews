@@ -7,3 +7,11 @@ List product details
 
 <a href="/reviews/new">Write Review for this product here !</a>
 <br></br>
+
+<br></br>
+<a href="/products/<%=@product.id%>/edit">Edit Product</a>
+
+<form action="/products/<%=@product.id%>/delete" method="POST">
+<input name="_method" type="hidden" value="delete" />
+  <input type="submit" value="Delete Product">
+</form>
