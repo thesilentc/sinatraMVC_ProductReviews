@@ -6,7 +6,7 @@ Reviews Index page : List all reviews for this product
 <br></br>
 
 <br></br>
-<% Review.all.each_with_index do |review, index|%>
+<% @product.reviews.each_with_index do |review, index|%>
   <%= index+1 %>. <a href="/reviews/<%=review.id%>"><%= review.title %></a>
   <%= review.review_comment %>
   Created by...

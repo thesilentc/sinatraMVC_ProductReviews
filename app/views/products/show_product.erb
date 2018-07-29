@@ -7,7 +7,7 @@
       <%= @product.description %>
       <br></br>
 
-      <% Review.all.each_with_index do |review, index|%>
+      <% @product.reviews.each_with_index do |review, index|%>
         <%= index+1 %>. <%= review.title %>
         <%= review.review_comment %>
 

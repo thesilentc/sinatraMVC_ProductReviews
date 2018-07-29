@@ -1,1 +1,16 @@
 List of products that belongs to user
+<h1>Welcome ! <%=@user.username%></h1>
+
+<br></br>
+<h1>List all products</h1>
+<br></br>
+<% @user.products.each_with_index do |product, index|%>
+  <%= index+1 %>. <a href="/products/<%=product.id%>"><%= product.name %></a>
+  <%= product.description %>
+  Created by...<%=@user.username%>
+  <br></br>
+<% end %>
+
+<a href="/products/new">Create a New product here !</a>
+<br></br>
+<a href="/logout">Logout</a>
