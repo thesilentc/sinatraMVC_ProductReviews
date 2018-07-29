@@ -78,6 +78,10 @@ class ProductsController < ApplicationController
      redirect to '/products'
    end
 
+   helpers do
+     def current_product
+     end
+   end
 
 
 

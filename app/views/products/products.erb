@@ -1,19 +1,14 @@
-Welcome !
-UserName <%=@user.username%>
-Email <%=@user.email%>
+<h1>Welcome ! <%=@user.username%></h1>
 
-List all products
-
+<br></br>
+<h1>List all products</h1>
+<br></br>
 <% Product.all.each_with_index do |product, index|%>
-  <br></br>
-  <%= index+1 %>. <%= product.name %>
+  <%= index+1 %>. <a href="/products/<%=product.id%>"><%= product.name %></a>
   <%= product.description %>
-
   Created by...
   <%=@user.username%>
   <br></br>
-
-
 <% end %>
 
 <a href="/products/new">Create a New product here !</a>

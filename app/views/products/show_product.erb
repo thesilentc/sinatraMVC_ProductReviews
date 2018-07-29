@@ -1,17 +1,32 @@
-List product details
+<h1>List product details</h1>
+<table>
+<tr>
+  <td>
+      <%= @product.name %>
+      <br></br>
+      <%= @product.description %>
+      <br></br>
 
-<%= @product.name %>
-<br></br>
-<%= @product.description %>
-<br></br>
+      <% Review.all.each_with_index do |review, index|%>
+        <%= index+1 %>. <%= review.title %>
+        <%= review.review_comment %>
 
-<a href="/reviews/new">Write Review for this product here !</a>
-<br></br>
+        <br></br>
+      <% end %>
+
+      <a href="/reviews/<%=@product.id%>/new">Write Review for this product here !</a>
+  </td>
+<td align ="center">
+  <a href="/products/<%=@product.id%>/edit">Edit Product</a>
+</td>
+<td align ="center">
+  <form action="/products/<%=@product.id%>/delete" method="POST">
+  <input name="_method" type="hidden" value="delete" />
+    <input type="submit" value="Delete Product">
+  </form>
+</td>
+
 
 <br></br>
-<a href="/products/<%=@product.id%>/edit">Edit Product</a>
-
-<form action="/products/<%=@product.id%>/delete" method="POST">
-<input name="_method" type="hidden" value="delete" />
-  <input type="submit" value="Delete Product">
-</form>
+</tr>
+</table>

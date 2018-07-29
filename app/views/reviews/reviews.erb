@@ -1,0 +1,17 @@
+Reviews Index page : List all reviews for this product
+<br></br>
+
+<h1>List all reviews for</h1>
+<h3>Product Name : <%= @product.name %></h3>
+<br></br>
+
+<br></br>
+<% Review.all.each_with_index do |review, index|%>
+  <%= index+1 %>. <a href="/reviews/<%=review.id%>"><%= review.title %></a>
+  <%= review.review_comment %>
+  Created by...
+  <%=@user.username%>
+  <br></br>
+<% end %>
+
+<a href="/logout">Logout</a>
