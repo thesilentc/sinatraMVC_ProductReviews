@@ -6,7 +6,8 @@
 <% Product.all.each_with_index do |product, index|%>
   <%= index+1 %>. <a href="/products/<%=product.id%>"><%= product.name %></a>
   <%= product.description %>
-  Created by...<%=@user.username%>
+  <% u = User.find_by_id(product.user_id)%>
+  Created by...<%=u.username%>
   <br></br>
 <% end %>
 

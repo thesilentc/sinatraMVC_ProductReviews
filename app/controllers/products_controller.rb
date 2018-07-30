@@ -34,11 +34,12 @@ class ProductsController < ApplicationController
       end
     end
 
+    # create a new product
     post '/products' do
      if params[:name] == "" || params[:description] == ""
        redirect "/products/new"
      else
-       @product = Product.create(:name => params["name"], :description => params["description"])
+       @product = Product.create(:name => params["name"], :description => params["description"], :user_id => current_user.id)
        @product.save
        redirect to "/products/#{@product.id}"
      end
@@ -55,7 +56,7 @@ class ProductsController < ApplicationController
             redirect to "/products/#{@product.id}/edit"
     else
             # binding.pry
-            @product.update(:name => params[:name], :description => params[:description])
+            @product.update(:name => params[:name], :description => params[:description], :user_id => current_user.id)
             @product.save
             redirect to "/products/#{@product.id}"
      end
