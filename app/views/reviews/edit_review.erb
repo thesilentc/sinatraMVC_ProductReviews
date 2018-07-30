@@ -1,0 +1,26 @@
+
+
+<h1>Edit Review</h1>
+<h3>Update review for product name</h3>
+<h3>Product Name : <%= @product.name %></h3>
+<br></br>
+
+<form action="/reviews/<%= @product.id %>/<%= @review.id %>" method="post">
+    <label>Review Title</label>
+    <input type="text" name="title" value="<%= @review.title %>" required></input>
+        <br></br>
+
+    <label>Review Comment</label>
+    <input type="textarea" name="review_comment" value="<%= @review.review_comment %>" required></input>
+        <br></br>
+
+    <label>Do You recommend this Product? </label>
+    <input type="text" name="recommend" value="<%= @review.recommend %>" required></input>
+        <br></br>
+
+    <label>Rating (1-5)</label>
+    <input type="text" name="rating" value="<%= @review.rating %>" required></input>
+        <br></br>
+
+    <input type="submit" value="Update Review">
+</form>
