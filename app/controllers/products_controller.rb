@@ -23,7 +23,9 @@ class ProductsController < ApplicationController
   get '/products/:id' do
       if logged_in?
         @product = Product.find_by_id(params[:id])
+        @reviews = Review.where(:product_id => @product.id)
         @user = current_user
+
         if Product.exists?(@product)
           erb :'/products/show_product'
         else

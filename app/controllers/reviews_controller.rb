@@ -14,13 +14,13 @@ class ReviewsController < ApplicationController
     # binding.pry
     @product = Product.find_by_id(params[:id])
     @user = current_user
-     @review = Review.create(:title => params["title"],
-                             :review_comment => params["review_comment"],
-                             :recommend => params["recommend"],
-                             :rating => params["rating"],
-                             :user_id => current_user.id,
-                             :product_id => Product.find_by_id(params[:id])
-                             )
+    @review = Review.create(:title => params["title"],
+                           :review_comment => params["review_comment"],
+                           :recommend => params["recommend"],
+                           :rating => params["rating"],
+                           :user_id => current_user.id,
+                           :product_id => @product.id)
+
      @review.save
      redirect to "/products/#{@product.id}"
 
