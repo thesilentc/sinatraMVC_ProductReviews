@@ -5,7 +5,7 @@
 <h3>Product Name : <%= @product.name %></h3>
 <br></br>
 
-<form action="/reviews/<%= @product.id %>/<%= @review.id %>" method="post">
+<form action="/reviews/<%= @product.id %>/edit/<%= @review.id %>" method="post">
     <label>Review Title</label>
     <input type="text" name="title" value="<%= @review.title %>" required></input>
         <br></br>

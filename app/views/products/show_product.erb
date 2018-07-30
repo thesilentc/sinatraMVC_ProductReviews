@@ -18,7 +18,11 @@
 
                 <td>
                   <a href="/reviews/<%=@product.id%>/edit/<%=review.id%>">Edit Review</a>
-                  <a href="/reviews/<%=@product.id%>/delete/<%=review.id%>">Delete Review</a>
+
+                  <form action="/reviews/<%=review.id%>/delete" method="POST">
+                  <input name="_method" type="hidden" value="delete" />
+                    <input type="submit" value="Delete Review">
+                  </form>
                 </td>
 
             </tr>

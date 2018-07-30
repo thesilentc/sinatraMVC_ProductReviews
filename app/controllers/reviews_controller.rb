@@ -55,24 +55,19 @@ class ReviewsController < ApplicationController
   #   end
 
   # update review
-  post '/reviews/:product_id/:review_id' do
+  post '/reviews/:product_id/edit/:review_id' do
   # update logic
-    raise params.inspect
+    # raise params.inspect
     @product = Product.find_by_id(params[:product_id])
-    @review = Review.where(:review_id => params[:review_id])
+    @review = Review.find_by_id(params[:review_id])
     @user = current_user
     if params[:title] == "" || params[:comment] == ""
            redirect to "/reviews/#{@product.id}/edit/#{@review.id}"
    else
-           # binding.pry
-           @review = Review.update(:title => params["title"],
-                                  :review_comment => params["review_comment"],
-                                  :recommend => params["recommend"],
-                                  :rating => params["rating"],
-                                  :user_id => @user.id,
-                                  :product_id => @product.id)
-           @review.save
-           redirect to "/products/#{@product.id}"
+    #  binding.pry
+     @review.update(:title => params["title"], :review_comment => params["review_comment"], :recommend => false, :rating => params["rating"], :user_id => @user.id, :product_id => @product.id)
+     @review.save
+     redirect to "/products/#{@product.id}"
     end
   end
 
@@ -87,12 +82,12 @@ class ReviewsController < ApplicationController
    end
   end
 
-  # delete link for product
+  # delete link for review
   delete '/reviews/:id/delete' do
     @review = Review.find_by_id(params[:id])
     @review.delete
     @review.save
-    redirect to '/reviews'
+    redirect to "/reviews/#{@review.product_id}"
   end
 
 end
