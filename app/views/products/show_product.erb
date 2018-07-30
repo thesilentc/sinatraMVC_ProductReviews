@@ -8,8 +8,14 @@
 
 <table>
           <% @reviews.each do |review|%>
+
               <tr>
                 <td>
+                    <br></br>
+                  <% u = User.find_by_id(review.user_id)%>
+                  Wrote by...<%=u.username%>
+
+  <br></br>
                   <%= review.title %>
                   <%= review.review_comment %>
                   <%= review.recommend %>
@@ -17,21 +23,24 @@
                 </td>
 
                 <td>
+                  <% if current_user.id == review.user_id %>
                   <a href="/reviews/<%=@product.id%>/edit/<%=review.id%>">Edit Review</a>
 
                   <form action="/reviews/<%=review.id%>/delete" method="POST">
                   <input name="_method" type="hidden" value="delete" />
                     <input type="submit" value="Delete Review">
                   </form>
+                  <% end %>
                 </td>
 
             </tr>
           <% end %>
 </table>
-
+<% if @product.user_id == current_user.id %>
   <a href="/products/<%=@product.id%>/edit">Edit Product</a>
 
   <form action="/products/<%=@product.id%>/delete" method="POST">
   <input name="_method" type="hidden" value="delete" />
     <input type="submit" value="Delete Product">
   </form>
+  <% end %>
