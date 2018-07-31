@@ -1,46 +1,48 @@
 <h1>List product details</h1>
 <table>
-  <tr>
-    <td>
-              <%= @product.name %>
-    </td>
-    <td>
-              <%= @product.description %>
-    </td>
+      <tr>
+        <td>
+                  <%= @product.name %>
+        </td>
+        <td>
+                  <%= @product.description %>
+        </td>
 
-<td>
-  <% if @product.user_id == current_user.id %>
-    <a href="/products/<%=@product.id%>/edit">Edit Product</a>
-    <br></br>
-</td>
-<td>
-    <form action="/products/<%=@product.id%>/delete" method="POST">
-    <input name="_method" type="hidden" value="delete" />
-      <input type="submit" value="Delete Product">
-    </form>
-    <% end %>
-</td>
-</tr>
+        <td>
+          <% if @product.user_id == current_user.id %>
+            <a href="/products/<%=@product.id%>/edit">Edit Product</a>
+            <br></br>
+        </td>
+        <td>
+            <form action="/products/<%=@product.id%>/delete" method="POST">
+            <input name="_method" type="hidden" value="delete" />
+              <input type="submit" value="Delete Product">
+            </form>
+            <% end %>
+        </td>
 
-
+        <td>
+            <a href="/products">View All Products</a>
+        </td>
+    </tr>
 </table>
 
 <br></br>
   <a href="/reviews/<%=@product.id%>/new">Write Reviews for this product here !</a>
 <br></br>
 
+<%if @reviews.size != 0%>
+    <h3>Recent Reviews for this product</h3>
+<%end%>
 
-<h3>Recent Reviews for this product</h3>
 <table>
           <% @reviews.each do |review|%>
-
               <tr>
                 <td>
                     <br></br>
-                  <% u = User.find_by_id(review.user_id)%>
-                  Wrote by...<%=u.username%>
-
-  <br></br>
+                        <% u = User.find_by_id(review.user_id)%>
+                        Wrote by...<%=u.username%>
+                    <br></br>
                   <%= review.title %>
                   <%= review.review_comment %>
 
