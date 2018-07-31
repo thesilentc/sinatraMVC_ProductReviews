@@ -12,7 +12,6 @@ class ReviewsController < ApplicationController
 
   # create review
   post '/reviews/:id' do
-     binding.pry
     @product = Product.find_by_id(params[:id])
     @user = current_user
     @review = Review.create(:title => params["title"],

@@ -14,7 +14,6 @@ class UsersController < ApplicationController
         session[:user_id] = @user.id
         redirect to :'/products'
       end
-
     end
 
     get '/login' do
