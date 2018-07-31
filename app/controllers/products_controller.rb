@@ -1,4 +1,7 @@
+require 'rack-flash'
+
 class ProductsController < ApplicationController
+  use Rack::Flash
 
   # product new action
   get '/products/new' do
@@ -42,8 +45,13 @@ class ProductsController < ApplicationController
        redirect "/products/new"
      else
        @product = Product.create(:name => params["name"], :description => params["description"], :user_id => current_user.id)
-       @product.save
-       redirect to "/products/#{@product.id}"
+       if @product.save
+         flash[:message] = "Successfully created Product !!"
+         redirect to "/products/#{@product.id}"
+       else
+         flash[:message] = "Un-Successfully created Product. Error : This Product name already exits !"
+         redirect "/products/new"
+       end
      end
    end
 
@@ -59,8 +67,13 @@ class ProductsController < ApplicationController
     else
             # binding.pry
             @product.update(:name => params[:name], :description => params[:description], :user_id => current_user.id)
-            @product.save
-            redirect to "/products/#{@product.id}"
+            if @product.save
+              flash[:message] = "Successfully updated Product !!"
+              redirect to "/products/#{@product.id}"
+            else
+              flash[:message] = "Un-Successfully updated Product. Error: This Product already exists !"
+              redirect to "/products/#{@product.id}/edit"
+            end
      end
    end
 
@@ -78,8 +91,16 @@ class ProductsController < ApplicationController
    delete '/products/:id/delete' do
      @product = Product.find_by_id(params[:id])
      @product.delete
-     @product.save
-     redirect to '/products'
+     if @product.save
+          @reviews = Review.where(:product_id => @product.id)
+          @reviews.delete_all
+
+          flash[:message] = "Successfully deleted this Product !! All reviews for this Product were also deleted !!"
+          redirect to "/products"
+      else
+          flash[:message] = "This Product was not deleted !!"
+          redirect to "/products/#{@product.id}"
+      end
    end
 
    helpers do
