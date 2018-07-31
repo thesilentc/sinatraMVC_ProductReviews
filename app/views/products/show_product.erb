@@ -1,11 +1,36 @@
 <h1>List product details</h1>
-<%= @product.name %>
-<br></br>
-<%= @product.description %>
+<table>
+  <tr>
+    <td>
+              <%= @product.name %>
+    </td>
+    <td>
+              <%= @product.description %>
+    </td>
+
+<td>
+  <% if @product.user_id == current_user.id %>
+    <a href="/products/<%=@product.id%>/edit">Edit Product</a>
+    <br></br>
+</td>
+<td>
+    <form action="/products/<%=@product.id%>/delete" method="POST">
+    <input name="_method" type="hidden" value="delete" />
+      <input type="submit" value="Delete Product">
+    </form>
+    <% end %>
+</td>
+</tr>
+
+
+</table>
+
 <br></br>
   <a href="/reviews/<%=@product.id%>/new">Write Reviews for this product here !</a>
 <br></br>
 
+
+<h3>Recent Reviews for this product</h3>
 <table>
           <% @reviews.each do |review|%>
 
@@ -18,14 +43,23 @@
   <br></br>
                   <%= review.title %>
                   <%= review.review_comment %>
-                  <%= review.recommend %>
-                  <%= review.rating %>
+
+                  <% (1..5).each do |i|
+                    if i <= review.rating
+                  %>
+                        <span class="fa fa-star checked"></span>
+                  <%else%>
+                        <span class="fa fa-star "></span>
+                  <%end
+                  end%>
                 </td>
 
                 <td>
                   <% if current_user.id == review.user_id %>
                   <a href="/reviews/<%=@product.id%>/edit/<%=review.id%>">Edit Review</a>
+                </td>
 
+                <td>
                   <form action="/reviews/<%=review.id%>/delete" method="POST">
                   <input name="_method" type="hidden" value="delete" />
                     <input type="submit" value="Delete Review">
@@ -36,11 +70,3 @@
             </tr>
           <% end %>
 </table>
-<% if @product.user_id == current_user.id %>
-  <a href="/products/<%=@product.id%>/edit">Edit Product</a>
-
-  <form action="/products/<%=@product.id%>/delete" method="POST">
-  <input name="_method" type="hidden" value="delete" />
-    <input type="submit" value="Delete Product">
-  </form>
-  <% end %>

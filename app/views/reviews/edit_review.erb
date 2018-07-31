@@ -15,11 +15,30 @@
         <br></br>
 
     <label>Do You recommend this Product? </label>
-    <input type="text" name="recommend" value="<%= @review.recommend %>" required></input>
+    <!-- <input type="text" name="recommend" value="<%= @review.recommend %>" required></input> -->
+    <% if @review.recommend == true %>
+      <input type="radio" name="recommend" value="true" checked>Yes</input>
+      <input type="radio" name="recommend" value="false" >No</input>
+    <%else%>
+      <input type="radio" name="recommend" value="true" >Yes</input>
+      <input type="radio" name="recommend" value="false" checked>No</input>
+    <%end%>
+
         <br></br>
 
     <label>Rating (1-5)</label>
-    <input type="text" name="rating" value="<%= @review.rating %>" required></input>
+
+    <select name="rating" required>
+      <% (1..5).each do |i|
+        if i == @review.rating
+      %>
+          <option value="<%=i%>" selected><%=i%></option>
+      <%else%>
+          <option value="<%=i%>"><%=i%></option>
+      <%end
+      end%>
+
+    </select>
         <br></br>
 
     <input type="submit" value="Update Review">
