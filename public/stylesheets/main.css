@@ -117,5 +117,6 @@
 }
 
 .error_message{
+  background: #eee;
   color: red;
 }
