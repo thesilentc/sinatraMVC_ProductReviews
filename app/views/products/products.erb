@@ -1,6 +1,8 @@
-<% if flash.has?(:message) %>
-  <%= flash[:message] %>
-<% end %>
+<div class="error_message">
+  <% if flash.has?(:message) %>
+    <%= flash[:message] %>
+  <% end %>
+</div>
 
 <h1>Welcome ! <%=@user.username%></h1>
 <a href="/logout">Logout</a>

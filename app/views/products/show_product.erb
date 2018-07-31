@@ -1,16 +1,21 @@
+<div class="error_message">
+  <% if flash.has?(:message) %>
+    <%= flash[:message] %>
+  <% end %>
+</div>
 
-<% if flash.has?(:message) %>
-  <%= flash[:message] %>
-<% end %>
+<br></br>
+
+<a href="/products">View All Products</a>
 
 <h1>List product details</h1>
 <table>
       <tr>
         <td>
-                  <%= @product.name %>
+                  <h3><%= @product.name %></h3>
         </td>
         <td>
-                  <%= @product.description %>
+                  <h5><%= @product.description %></h5>
         </td>
 
         <td>
@@ -27,7 +32,7 @@
         </td>
 
         <td>
-            <a href="/products">View All Products</a>
+
         </td>
     </tr>
 </table>

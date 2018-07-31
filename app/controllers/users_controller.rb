@@ -1,4 +1,6 @@
+require 'rack-flash'
 class UsersController < ApplicationController
+    use Rack::Flash
 
     get '/signup' do
       erb :'/users/create_user'
@@ -7,12 +9,18 @@ class UsersController < ApplicationController
     post '/signup' do
       # raise params.inspect
       if params[:username] == "" || params[:email] == "" || params[:password] == ""
+          flash[:message] = "UserName, Email Or Password cannot be blank!"
           redirect to '/signup'
       else
         @user = User.create(:username => params[:username], :email => params[:email], :password => params[:password])
-        @user.save
-        session[:user_id] = @user.id
-        redirect to :'/products'
+        if @user.save
+          flash[:message] = "Successfully created User !!"
+          session[:user_id] = @user.id
+          redirect to :'/products'
+        else
+          flash[:message] = "Un-Successfully created User. Email already exists!"
+          redirect to '/signup'
+        end
       end
     end
 
@@ -26,11 +34,17 @@ class UsersController < ApplicationController
 
     post '/login' do
       @user = User.find_by(:email => params[:email])
-        if @user && @user.authenticate(params[:password])
+        if User.exists?@user
+          if @user.authenticate(params[:password])
             session[:user_id] = @user.id
             redirect "/products"
+          else
+            flash[:message] = "Incorrect Email or Password"
+            redirect '/login'
+          end
         else
-            redirect '/signup'
+          flash[:message] = "This account does not exists. Please create an account !"
+          redirect '/signup'
         end
     end
 
