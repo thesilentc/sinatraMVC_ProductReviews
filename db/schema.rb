@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20180726210313) do
   create_table "products", force: :cascade do |t|
     t.string  "name"
     t.text    "description"
-    t.integer "user_id"
+    t.integer "created_by"
   end
 
   create_table "reviews", force: :cascade do |t|
