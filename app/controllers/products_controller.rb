@@ -90,6 +90,9 @@ class ProductsController < ApplicationController
    # delete link for product
    delete '/products/:id/delete' do
      @product = Product.find_by_id(params[:id])
+
+     flash[:alert] = "Are you sure you want to delete this product"
+
      @product.delete
      if @product.save
           @reviews = Review.where(:product_id => @product.id)
