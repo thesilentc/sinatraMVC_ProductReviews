@@ -46,21 +46,6 @@ class ReviewsController < ApplicationController
     end
   end
 
-
-  # # Review Show page
-  # get '/reviews/:id' do
-  #     if logged_in?
-  #       @product = Product.find_by_id(params[:id])
-  #       if Product.exists?(@product)
-  #         erb :'/reviews/show_review'
-  #       else
-  #           redirect to "/login"
-  #       end
-  #     else
-  #       redirect to "/login"
-  #     end
-  #   end
-
   # update review
   post '/reviews/:product_id/edit/:review_id' do
   # update logic

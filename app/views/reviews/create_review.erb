@@ -1,27 +1,47 @@
+<div class="error_message">
+  <% if flash.has?(:message) %>
+    <%= flash[:message] %>
+  <% end %>
+</div>
 
+<h2>Write Review for : <%= @product.name %></h2>
 
-<h1>Add New Review</h1>
-<h3>Write a new review for product name</h3>
-<h3>Product Name : <%= @product.name %></h3>
-<br></br>
 
 <form action="/reviews/<%= @product.id %>" method="post">
+  <table>
+    <tr>
+      <td>
     <label>Review Title</label>
+  </td>
+  <td>
     <input type="text" name="title" required></input>
-        <br></br>
-
-    <label>Review Comment</label>
-    <input type="textarea" name="review_comment" required></input>
-        <br></br>
-
+  </td>
+</tr>
+<tr>
+  <td>
+      <label>Review Comment</label>
+    </td>
+    <td>
+        <textarea name="review_comment" required></textarea>
+    </td>
+  </tr>
+  <tr>
+    <td></td><td></td>
+  </tr>
+  <tr>
+    <td>
     <label>Do You recommend this Product? </label>
-
+  </td>
+      <td>
       <input type="radio" name="recommend" value="true" checked>Yes</input>
       <input type="radio" name="recommend" value="false">No</input>
-
-        <br></br>
-
+    </td>
+</tr>
+<tr>
+<td>
     <label>Rating (1-5)</label>
+  </td>
+    <td>
         <select name="rating" required>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -29,7 +49,16 @@
           <option value="4">4</option>
           <option value="5">5</option>
         </select>
-        <br></br>
-
+</td>
+</tr>
+<tr>
+  <td></td><td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>
     <input type="submit" value="Create Review">
+  </td>
+</tr>
+</table>
 </form>

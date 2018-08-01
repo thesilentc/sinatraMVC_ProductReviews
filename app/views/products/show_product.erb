@@ -35,7 +35,7 @@
       </td>
     </tr>
 </table>
-  <a href="/reviews/<%=@product.id%>/new">Write Reviews for this product here !</a>
+  <a href="/reviews/<%=@product.id%>/new">Write Reviews for <%= @product.name %> here !</a>
 <br></br>
 
 <%if @reviews.size != 0%>
@@ -46,7 +46,7 @@
 <% @reviews.each do |review|%>
     <tr>
       <td width="80%">
-        <% u = User.find_by_id(review.user_id)%>Wrote by...<%=u.username%>
+          <a href="/reviews/<%=@product.id%>"><% u = User.find_by_id(review.user_id)%>Written by...<%=u.username%></a>
       </td>
       <td width="15%">
         <% if current_user.id == review.user_id %>

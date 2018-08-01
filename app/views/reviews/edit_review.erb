@@ -1,20 +1,40 @@
+<div class="error_message">
+  <% if flash.has?(:message) %>
+    <%= flash[:message] %>
+  <% end %>
+</div>
 
-
-<h1>Edit Review</h1>
-<h3>Update review for product name</h3>
-<h3>Product Name : <%= @product.name %></h3>
-<br></br>
+<h2>Update review for : <%= @product.name %></h2>
 
 <form action="/reviews/<%= @product.id %>/edit/<%= @review.id %>" method="post">
+  <table>
+    <tr>
+      <td>
     <label>Review Title</label>
+  </td>
+  <td>
     <input type="text" name="title" value="<%= @review.title %>" required></input>
-        <br></br>
+  </td>
+</tr>
 
+<tr>
+<td>
     <label>Review Comment</label>
-    <input type="textarea" name="review_comment" value="<%= @review.review_comment %>" required></input>
-        <br></br>
+  </td>
+  <td>
+  <input type="textarea" name="review_comment" value="<%= @review.review_comment %>" required></input>
+  </td>
+</tr>
+<tr>
+  <td></td><td></td>
+</tr>
+
+<tr>
+  <td>
 
     <label>Do You recommend this Product? </label>
+  </td>
+  <td>
     <!-- <input type="text" name="recommend" value="<%= @review.recommend %>" required></input> -->
     <% if @review.recommend == true %>
       <input type="radio" name="recommend" value="true" checked>Yes</input>
@@ -23,11 +43,14 @@
       <input type="radio" name="recommend" value="true" >Yes</input>
       <input type="radio" name="recommend" value="false" checked>No</input>
     <%end%>
+  </td>
+  </tr>
 
-        <br></br>
-
+  <tr>
+  <td>
     <label>Rating (1-5)</label>
-
+  </td>
+  <td>
     <select name="rating" required>
       <% (1..5).each do |i|
         if i == @review.rating
@@ -37,9 +60,20 @@
           <option value="<%=i%>"><%=i%></option>
       <%end
       end%>
-
     </select>
-        <br></br>
+  </td>
 
+  </tr>
+  <tr>
+    <td></td><td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
     <input type="submit" value="Update Review">
+  </td>
+
+  </tr>
+</table>
+
 </form>
