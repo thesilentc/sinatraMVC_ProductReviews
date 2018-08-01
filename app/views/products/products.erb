@@ -4,24 +4,22 @@
   <% end %>
 </div>
 
-<h1>Welcome ! <%=@user.username%></h1>
-<a href="/logout">Logout</a>
-<br></br>
-
-<a href="/products/new">Create New product here !</a>
-<br></br>
-
-<h2>List all products</h2>
-<%if Product.all.size == 0%>
-  <h3>There are no products to display.</h3>
-<%end%>
-<br></br>
-
-<% Product.all.each_with_index do |product, index|%>
-  <%= index+1 %>. <a href="/products/<%=product.id%>"><%= product.name %></a>
+<div>
+  <h1>Welcome ! <%= @user.username %></h1>
+  <a href="/logout">Logout</a>
   <br></br>
-  <%= product.description %>
-  <!-- <% u = User.find_by_id(product.user_id)%>
-  Created by...<%=u.username%> -->
+  <a href="/products/new">Create New product here !</a>
   <br></br>
-<% end %>
+</div>
+
+<div>
+  <h2>List all products</h2>
+  <% if Product.all.size == 0 %>
+    <h3>There are no products to display.</h3>
+  <% end %>
+
+  <% Product.all.each_with_index do |product, index|%>
+    <h3><a href="/products/<%=product.id%>"><%= product.name %></a></h3>
+    <p><%= product.description %><p>
+    <% end %>
+</div>

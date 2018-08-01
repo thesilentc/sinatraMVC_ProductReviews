@@ -5,38 +5,36 @@
 </div>
 
 <br></br>
-
 <a href="/products">View All Products</a>
 
-<h1>List product details</h1>
+<h1>Product details</h1>
 <table>
       <tr>
         <td>
-                  <h3><%= @product.name %></h3>
+            <h3><%= @product.name %></h3>
         </td>
+      </tr>
+      <tr>
         <td>
-                  <h5><%= @product.description %></h5>
-        </td>
-
-        <td>
-          <% if @product.user_id == current_user.id %>
-            <a href="/products/<%=@product.id%>/edit">Edit Product</a>
-            <br></br>
-        </td>
-        <td>
-            <form action="/products/<%=@product.id%>/delete" method="POST">
-            <input name="_method" type="hidden" value="delete" />
-              <input type="submit" value="Delete Product">
-            </form>
-            <% end %>
-        </td>
-
-        <td>
-
+            <p><%= @product.description %></p>
         </td>
     </tr>
+    <tr>
+      <td>
+        <% if @product.user_id == current_user.id %>
+          <a href="/products/<%=@product.id%>/edit">Edit Product</a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+          <form action="/products/<%=@product.id%>/delete" method="POST">
+          <input name="_method" type="hidden" value="delete" />
+            <input type="submit" value="Delete Product">
+          </form>
+          <% end %>
+      </td>
+    </tr>
 </table>
-
 <br></br>
   <a href="/reviews/<%=@product.id%>/new">Write Reviews for this product here !</a>
 <br></br>
@@ -49,13 +47,37 @@
           <% @reviews.each do |review|%>
               <tr>
                 <td>
-                    <br></br>
-                        <% u = User.find_by_id(review.user_id)%>
-                        Wrote by...<%=u.username%>
-                    <br></br>
-                  <%= review.title %>
-                  <%= review.review_comment %>
+                  <% u = User.find_by_id(review.user_id)%>
+                  Wrote by...<%=u.username%>
+                </td>
+                <td>
+                  <% if current_user.id == review.user_id %>
+                  <a href="/reviews/<%=@product.id%>/edit/<%=review.id%>">Edit Review</a>
+                </td>
+                <td>
+                  <form action="/reviews/<%=review.id%>/delete" method="POST">
+                  <input name="_method" type="hidden" value="delete" />
+                    <input type="submit" value="Delete Review">
+                  </form>
+                  <% end %>
+                </td>
 
+              </tr>
+
+              <tr>
+                <td>
+                  <%= review.title %>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <%= review.review_comment %>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
                   <% (1..5).each do |i|
                     if i <= review.rating
                   %>
@@ -65,20 +87,6 @@
                   <%end
                   end%>
                 </td>
-
-                <td>
-                  <% if current_user.id == review.user_id %>
-                  <a href="/reviews/<%=@product.id%>/edit/<%=review.id%>">Edit Review</a>
-                </td>
-
-                <td>
-                  <form action="/reviews/<%=review.id%>/delete" method="POST">
-                  <input name="_method" type="hidden" value="delete" />
-                    <input type="submit" value="Delete Review">
-                  </form>
-                  <% end %>
-                </td>
-
-            </tr>
-          <% end %>
+              </tr>
+            <% end %>
 </table>
