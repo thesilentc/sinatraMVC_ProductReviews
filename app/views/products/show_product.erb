@@ -20,13 +20,13 @@
         </td>
     </tr>
     <tr>
-      <td>
+      <td width="80%"></td>
+      <td width="15%">
         <% if @product.user_id == current_user.id %>
           <a href="/products/<%=@product.id%>/edit">Edit Product</a>
       </td>
-    </tr>
-    <tr>
-      <td>
+
+      <td width="15%">
           <form action="/products/<%=@product.id%>/delete" method="POST">
           <input name="_method" type="hidden" value="delete" />
             <input type="submit" onclick="return confirm('Are you sure you want to delete this Product? Product Reviews shall also be deleted?');" value="Delete Product">
@@ -35,58 +35,56 @@
       </td>
     </tr>
 </table>
-<br></br>
   <a href="/reviews/<%=@product.id%>/new">Write Reviews for this product here !</a>
 <br></br>
 
 <%if @reviews.size != 0%>
-    <h3>Recent Reviews for this product</h3>
+    <h2>Recent Reviews for this product</h2>
 <%end%>
 
 <table>
-          <% @reviews.each do |review|%>
-              <tr>
-                <td>
-                  <% u = User.find_by_id(review.user_id)%>
-                  Wrote by...<%=u.username%>
-                </td>
-                <td>
-                  <% if current_user.id == review.user_id %>
-                  <a href="/reviews/<%=@product.id%>/edit/<%=review.id%>">Edit Review</a>
-                </td>
-                <td>
-                  <form action="/reviews/<%=review.id%>/delete" method="POST">
-                  <input name="_method" type="hidden" value="delete" />
-                    <input type="submit" onclick="return confirm('Are you sure you want to delete this review?');" value="Delete Review">
-                  </form>
-                  <% end %>
-                </td>
+<% @reviews.each do |review|%>
+    <tr>
+      <td width="80%">
+        <% u = User.find_by_id(review.user_id)%>Wrote by...<%=u.username%>
+      </td>
+      <td width="15%">
+        <% if current_user.id == review.user_id %>
+        <a href="/reviews/<%=@product.id%>/edit/<%=review.id%>">Edit Review</a>
+      </td>
+      <td width="15%">
+        <form action="/reviews/<%=review.id%>/delete" method="POST">
+        <input name="_method" type="hidden" value="delete" />
+          <input type="submit" onclick="return confirm('Are you sure you want to delete this review?');" value="Delete Review">
+        </form>
+        <% end %>
+      </td>
 
-              </tr>
+    </tr>
 
-              <tr>
-                <td>
-                  <%= review.title %>
-                </td>
-              </tr>
+    <tr>
+      <td width="70%">
+        <h3><%= review.title %></h3>
+      </td>
+    </tr>
 
-              <tr>
-                <td>
-                  <%= review.review_comment %>
-                </td>
-              </tr>
+    <tr>
+      <td width="70%">
+        <%= review.review_comment %>
+      </td>
+    </tr>
 
-              <tr>
-                <td>
-                  <% (1..5).each do |i|
-                    if i <= review.rating
-                  %>
-                        <span class="fa fa-star checked"></span>
-                  <%else%>
-                        <span class="fa fa-star "></span>
-                  <%end
-                  end%>
-                </td>
-              </tr>
-            <% end %>
+    <tr>
+      <td width="70%">
+        <% (1..5).each do |i|
+          if i <= review.rating
+        %>
+              <span class="fa fa-star checked"></span>
+        <%else%>
+              <span class="fa fa-star "></span>
+        <%end
+        end%>
+      </td>
+    </tr>
+  <% end %>
 </table>

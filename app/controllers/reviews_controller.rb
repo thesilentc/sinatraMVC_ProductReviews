@@ -1,4 +1,7 @@
+require 'rack-flash'
 class ReviewsController < ApplicationController
+
+  use Rack::Flash
 
   # review new action
   get '/reviews/:id/new' do
@@ -21,8 +24,13 @@ class ReviewsController < ApplicationController
                            :user_id => current_user.id,
                            :product_id => @product.id)
 
-     @review.save
-     redirect to "/products/#{@product.id}"
+     if @review.save
+       flash[:message] = "Successfully created Review !!"
+       redirect to "/products/#{@product.id}"
+     else
+       flash[:message] = "Un-Successfully created Review."
+       redirect to "/reviews/#{@product.id}/new"
+     end
 
  end
 
@@ -65,8 +73,13 @@ class ReviewsController < ApplicationController
    else
     #  binding.pry
      @review.update(:title => params["title"], :review_comment => params["review_comment"], :recommend => false, :rating => params["rating"], :user_id => @user.id, :product_id => @product.id)
-     @review.save
-     redirect to "/products/#{@product.id}"
+     if @review.save
+       flash[:message] = "Successfully updated Review !!"
+       redirect to "/products/#{@product.id}"
+     else
+       flash[:message] = "Un-Successfully updated Review."
+       redirect to "/reviews/#{@product.id}/edit/#{@review.id}"
+     end
     end
   end
 
@@ -85,8 +98,13 @@ class ReviewsController < ApplicationController
   delete '/reviews/:id/delete' do
     @review = Review.find_by_id(params[:id])
     @review.delete
-    @review.save
-    redirect to "/reviews/#{@review.product_id}"
+    if @review.save
+      flash[:message] = "Successfully deleted Review !!"
+      redirect to "/reviews/#{@review.product_id}"
+    else
+      flash[:message] = "Un-Successfully deleted Review !!"
+      redirect to "/reviews/#{@review.product_id}"
+    end
   end
 
 end
