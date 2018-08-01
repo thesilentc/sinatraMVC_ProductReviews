@@ -1,1 +1,23 @@
-Show Review Page
+<div class="error_message">
+  <% if flash.has?(:message) %>
+    <%= flash[:message] %>
+  <% end %>
+</div>
+
+<br></br>
+<a href="/products">View All Products</a>
+
+<h3>Product Reviews by <%=@show_user.username%> </h3>
+
+Favourite Products of <%=@show_user.username%>
+<br></br>
+<% @reviews.each do |review|%>
+
+  <% product = Product.find_by_id(review.product_id) %>
+  <h3><a href="/products/<%=product.id%>"><%= product.name %></a></h3>
+
+  <%= review.title %>
+  <%= review.review_comment %>
+
+<br></br>
+<% end %>

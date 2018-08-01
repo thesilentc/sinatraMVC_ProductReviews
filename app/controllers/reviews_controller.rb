@@ -34,10 +34,21 @@ class ReviewsController < ApplicationController
 
  end
 
+ # reviews show page for user
+ get '/reviews/:id/show' do
+   if logged_in?
+     @show_user = User.find_by_id(params[:id])
+     @reviews = Review.where(:user_id => params[:id], :rating => [4,5])
+     erb :"/reviews/show_review"
+   else
+     redirect to "/login"
+   end
+ end
+
   # Review Index Page - list all reviews for this Product
-  get '/reviews/:id' do
+  get '/reviews/:product_id' do
     if logged_in?
-      @product = Product.find_by_id(params[:id])
+      @product = Product.find_by_id(params[:product_id])
       @reviews = Review.where(:product_id => @product.id)
       @user = current_user
       redirect to "/products/#{@product.id}"
@@ -45,6 +56,8 @@ class ReviewsController < ApplicationController
       redirect to "/login"
     end
   end
+
+
 
   # update review
   post '/reviews/:product_id/edit/:review_id' do

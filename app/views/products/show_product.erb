@@ -46,7 +46,8 @@
 <% @reviews.each do |review|%>
     <tr>
       <td width="80%">
-          <a href="/reviews/<%=@product.id%>"><% u = User.find_by_id(review.user_id)%>Written by...<%=u.username%></a>
+        <% u = User.find_by_id(review.user_id)%>
+          <a href="/reviews/<%=review.user_id%>/show">Written by...<%=u.username%></a>
       </td>
       <td width="15%">
         <% if current_user.id == review.user_id %>
