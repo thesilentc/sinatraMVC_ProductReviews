@@ -49,7 +49,7 @@ class ProductsController < ApplicationController
          flash[:message] = "Successfully created Product !!"
          redirect to "/products/#{@product.id}"
        else
-         flash[:message] = "Un-Successfully created Product. Error : This Product name already exits !"
+         flash[:message] = "This Product name already exits !"
          redirect "/products/new"
        end
      end
@@ -71,7 +71,7 @@ class ProductsController < ApplicationController
               flash[:message] = "Successfully updated Product !!"
               redirect to "/products/#{@product.id}"
             else
-              flash[:message] = "Un-Successfully updated Product. Error: This Product already exists !"
+              flash[:message] = "This Product name already exists !"
               redirect to "/products/#{@product.id}/edit"
             end
      end
