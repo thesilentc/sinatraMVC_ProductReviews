@@ -9,6 +9,7 @@
 <h1>Create New Account</h1>
 
 <form action="/signup" method="post">
+
   <table>
     <tr>
       <td>
@@ -18,34 +19,32 @@
         <input type="text" name="username" required></input>
       </td>
     </tr>
+
     <tr>
       <td>
         <label>Email</label>
       </td>
       <td>
-
-        <input type="text" name="email" pattern="~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i" title="Check your email format e.g. john.smith@gmail.com" required></input>
+        <input type="text" name="email" required></input>
       </td>
     </tr>
+
     <tr>
-
       <td>
-
         <label>Password</label>
-
       </td>
       <td>
-    <input type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required></input>
-  </td>
-</tr>
-<tr>
-  <td>
-  </td>
+        <input type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required></input>
+      </td>
+    </tr>
 
-<td>
-    <input type="submit" value="SignUp">
-</td>
-</tr>
+    <tr>
+      <td>
+      </td>
+      <td>
+          <input type="submit" value="SignUp">
+      </td>
+    </tr>
 </table>
 
 </form>
