@@ -7,9 +7,12 @@
 <br></br>
 <a href="/products">View All Products</a>
 
-<h3>Product Reviews by <%=@show_user.username%> </h3>
+<h3>Favourite Product Reviews by <%=@show_user.username%> </h3>
 
-Favourite Products of <%=@show_user.username%>
+<% if @reviews.all.size == 0%>
+<h3>There are no favourite products.</h3>
+<% end %>
+
 <br></br>
 <% @reviews.each do |review|%>
 
