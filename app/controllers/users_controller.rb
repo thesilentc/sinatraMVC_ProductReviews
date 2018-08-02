@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     post '/signup' do
       # raise params.inspect
       if params[:username] == "" || params[:email] == "" || params[:password] == ""
-          flash[:message] = "UserName, Email Or Password cannot be blank!"
+          flash[:message] = "Username, Email OR Password cannot be blank!"
           redirect to '/signup'
       else
         @user = User.create(:username => params[:username], :email => params[:email], :password => params[:password])
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
           session[:user_id] = @user.id
           redirect to :'/products'
         else
-          flash[:message] = "Un-Successfully created User. Email already exists!"
+          flash[:message] = "Un-Successfully created User. Incorrect Email OR Password."
           redirect to '/signup'
         end
       end
@@ -39,11 +39,11 @@ class UsersController < ApplicationController
             session[:user_id] = @user.id
             redirect "/products"
           else
-            flash[:message] = "Incorrect Email or Password"
+            flash[:message] = "Incorrect Email OR Password"
             redirect '/login'
           end
         else
-          flash[:message] = "This account does not exists. Please create an account !"
+          flash[:message] = "This account does not exists. Please create a new account !"
           redirect '/signup'
         end
     end
