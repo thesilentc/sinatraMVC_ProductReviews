@@ -43,7 +43,7 @@ class UsersController < ApplicationController
             redirect '/login'
           end
         else
-          flash[:message] = "This account does not exists. Please create a new account !"
+          flash[:message] = "This account does not exist. Please create a new account !"
           redirect '/signup'
         end
     end
